@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class ArrayAnalyzer {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
+        System.out.println("Zadejte kolik prvku bude pole obsahovat:");
         Integer input=userInput(sc);
-        menu();
-        Integer[] arrOfNums=createArray(input);
+        Integer[] arrOfNums=createArray(input,sc);
         int sumArr=sumOfElements(arrOfNums);
         int value=0;
         while(true){
@@ -15,28 +15,34 @@ public class ArrayAnalyzer {
                 System.out.println("Konec programu.");
                 return;
             }
-            int option=input;
-            switch(option){
+            menu();
+            Integer option=userInput(sc);
+            if(option==null){
+                System.out.println("Konec programu.");
+                return;
+            }
+            switch(option) {
                 case 1:
                     System.out.println("Nejmenší hodnota v poli je " +
-                            +findMin(arrOfNums)+" a největsí hodnota v poli je "+findMax(arrOfNums)+".");
+                            +findMin(arrOfNums) + " a největsí hodnota v poli je " + findMax(arrOfNums) + ".");
                     break;
                 case 2:
-                    System.out.println("Součet všsch prvků v poli je "+sumOfElements(arrOfNums)+
-                            " a jejich průměr je "+averageOfElements(sumArr,arrOfNums)+".");
+                    System.out.println("Součet všsch prvků v poli je " + sumOfElements(arrOfNums) +
+                            " a jejich průměr je " + averageOfElements(sumArr, arrOfNums) + ".");
                     break;
                 case 3:
                     System.out.println("Napište jaké číslo chcete vyhledat:");
-                    value=userInput(sc);
-                    if(findElement(arrOfNums, value)){
-                        System.out.println("Číslo "+value+" je obsaženo v poli.");
-                    }else{
-                        System.out.println("Číslo "+value+" není obsaženo v poli.");
+                    value = userInput(sc);
+                    if (findElement(arrOfNums, value)) {
+                        System.out.println("Číslo " + value + " je obsaženo v poli.");
+                    } else {
+                        System.out.println("Číslo " + value + " není obsaženo v poli.");
                     }
                     break;
                 case 4:
-                    System.out.println("Nejčastěji vyskytujícíse prvek je:"+modus(arrOfNums));
+                    System.out.println("Nejčastěji vyskytujícíse prvek je:" + modus(arrOfNums));
                     break;
+
             }
         }
     }
@@ -46,7 +52,7 @@ public class ArrayAnalyzer {
         Integer result=null;
         while(true){
             String input=sc.nextLine();
-            if(input.equalsIgnoreCase("5")){
+            if(input.equalsIgnoreCase("*")){
                 return null;
             }
             try{
@@ -59,18 +65,17 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro vytvoreni a naplneni pole.
-    public static Integer[] createArray(Integer input){
+    public static Integer[] createArray(Integer input,Scanner sc){
         Integer[] nums;
         while(true){
-            System.out.println("Zadejte kolik prvku bude pole obsahovat:");
             if(input<1){ //Osetreni velikosti pole.
                 System.out.println("Velikost pole musí být větší než 0. ");
                 break;
             }
-           nums=new Integer[input];
+            nums=new Integer[input];
             System.out.println("Postupně pište prvky pole. Za každým prvkem stisknete enter.");
             for (int i=0; i < nums.length; i++) {
-                nums[i] = input;
+                nums[i] = userInput(sc);
             }
             return nums;
         }
@@ -148,6 +153,6 @@ public class ArrayAnalyzer {
                 "2 – Součet a Průměr\n" +
                 "3 – Vyhledat číslo\n" +
                 "4 – Nejčastější prvek\n" +
-                "5 – Konec");
+                "* – Konec");
     }
 }
