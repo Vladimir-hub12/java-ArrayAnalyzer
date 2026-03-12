@@ -7,14 +7,18 @@ public class ArrayAnalyzer {
         Scanner sc=new Scanner(System.in);
         System.out.println("Zadejte kolik prvku bude pole obsahovat:");
         Integer input=userInput(sc);
-        Integer[] arrOfNums=createArray(input,sc);
-        int sumArr=sumOfElements(arrOfNums);
         int value=0;
+        if(input==null){
+            System.out.println("Konec programu.");
+            return;
+        }
+        Integer[] arrOfNums=createArray(input,sc);
+        if(arrOfNums==null){
+            System.out.println("Konec programu.");
+            return;
+        }
+        int sumArr=sumOfElements(arrOfNums);
         while(true){
-            if(input==null){
-                System.out.println("Konec programu.");
-                return;
-            }
             menu();
             Integer option=userInput(sc);
             if(option==null){
@@ -75,7 +79,10 @@ public class ArrayAnalyzer {
             nums=new Integer[input];
             System.out.println("Postupně pište prvky pole. Za každým prvkem stisknete enter.");
             for (int i=0; i < nums.length; i++) {
-                nums[i] = userInput(sc);
+                    nums[i] = userInput(sc);
+                    if(nums[i]==null){
+                        return null;
+                    }
             }
             return nums;
         }
