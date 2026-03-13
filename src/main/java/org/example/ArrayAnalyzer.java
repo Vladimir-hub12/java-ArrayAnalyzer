@@ -5,19 +5,31 @@ import java.util.Scanner;
 public class ArrayAnalyzer {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
-        System.out.println("Zadejte kolik prvku bude pole obsahovat:");
-        Integer input=userInput(sc);
-        int value=0;
-        if(input==null){
+        Integer input = null;
+        int value = 0;
+
+        // Ošetření opakovaného zadání velikosti pole
+        while (true) {
+            System.out.println("Zadejte kolik prvku bude pole obsahovat:");
+            input = userInput(sc);
+            if (input == null) { // uživatel zadal *
+                System.out.println("Konec programu.");
+                return;
+            }
+            if (input < 1) {
+                System.out.println("Velikost pole musí být větší než 0.");
+            } else {
+                break; // platná velikost
+            }
+        }
+
+        // Vytvoření a naplnění pole
+        Integer[] arrOfNums = createArray(input, sc);
+        if (arrOfNums == null) { // uživatel zadal * při plnění
             System.out.println("Konec programu.");
             return;
         }
-        Integer[] arrOfNums=createArray(input,sc);
-        if(arrOfNums==null){
-            System.out.println("Konec programu.");
-            return;
-        }
-        int sumArr=sumOfElements(arrOfNums);
+        double sumArr=sumOfElements(arrOfNums);
         while(true){
             menu();
             Integer option=userInput(sc);
@@ -69,30 +81,23 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro vytvoreni a naplneni pole.
-    public static Integer[] createArray(Integer input,Scanner sc){
-        Integer[] nums;
-        while(true){
-            if(input<1){ //Osetreni velikosti pole.
-                System.out.println("Velikost pole musí být větší než 0. ");
-                break;
+    public static Integer[] createArray(Integer size, Scanner sc) {
+        Integer[] nums = new Integer[size];
+        System.out.println("Postupně pište prvky pole. Za každým prvkem stisknete enter. Pro ukončení zadejte *.");
+        for (int i = 0; i < size; i++) {
+            Integer value = userInput(sc);
+            if (value == null) {
+                return null;
             }
-            nums=new Integer[input];
-            System.out.println("Postupně pište prvky pole. Za každým prvkem stisknete enter.");
-            for (int i=0; i < nums.length; i++) {
-                    nums[i] = userInput(sc);
-                    if(nums[i]==null){
-                        return null;
-                    }
-            }
-            return nums;
+            nums[i] = value;
         }
-       return null;
+        return nums;
     }
 
     //Metoda pro hledani minima.
     public static int findMin(Integer[] arrOfNums){
         int min=arrOfNums[0];
-        for(int i = 0; i<arrOfNums.length; i++){
+        for(int i = 1; i<arrOfNums.length; i++){
             if(arrOfNums[i]<min){
                 min=arrOfNums[i];
             }
@@ -103,7 +108,7 @@ public class ArrayAnalyzer {
     //Metoda pro hledani maxima.
     public static int findMax(Integer[] arrOfNums){
         int max=arrOfNums[0];
-        for(int i = 0; i<arrOfNums.length; i++){
+        for(int i = 1; i<arrOfNums.length; i++){
             if(max<arrOfNums[i]){
                 max=arrOfNums[i];
             }
@@ -112,8 +117,8 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro soucet prvku.
-    public static int sumOfElements(Integer[] arrOfNums){
-        int sum=0;
+    public static double sumOfElements(Integer[] arrOfNums){
+        double sum=0;
         for(int i=0;i< arrOfNums.length;i++){
             sum+=arrOfNums[i];
         }
@@ -121,9 +126,8 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro vypocet prumeru prvku.
-    public static int averageOfElements(int sumArr,Integer[] arrOfNums){
-        int average=0;
-        return average=sumArr/arrOfNums.length;
+    public static double averageOfElements(double sumArr,Integer[] arrOfNums){
+        return sumArr/arrOfNums.length;
     }
 
     //Metoda pro vyhledani prvku.
@@ -138,18 +142,21 @@ public class ArrayAnalyzer {
 
     //Metoda pro modus.
     public static int modus(Integer[] arrOfNums){
-        int count=0;
-        int num=0;
-        for(int i=0;i<arrOfNums.length;i++){
-            num=arrOfNums[i];
-            for(int j=0;j<arrOfNums.length;j++){
-                if(arrOfNums[j]==num){
+        int maxCount = 0;
+        int mode = arrOfNums[0];
+        for (int i = 0; i < arrOfNums.length; i++) {
+            int count = 0;
+            for (int j = 0; j < arrOfNums.length; j++) {
+                if (arrOfNums[j] == arrOfNums[i]) {
                     count++;
-                    num=arrOfNums[j];
                 }
             }
+            if (count > maxCount) {
+                maxCount = count;
+                mode = arrOfNums[i];
+            }
         }
-        return num;
+        return mode;
     }
 
     //Metoda pro vyvolani menu.
