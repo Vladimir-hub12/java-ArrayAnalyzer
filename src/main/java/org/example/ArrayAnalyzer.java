@@ -6,11 +6,10 @@ public class ArrayAnalyzer {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         Integer input = null;
-        int value = 0;
 
         // Ošetření opakovaného zadání velikosti pole
         while (true) {
-            System.out.println("Zadejte kolik prvku bude pole obsahovat:");
+            System.out.println("Zadejte kolik prvků bude pole obsahovat:");
             input = userInput(sc);
             if (input == null) { // uživatel zadal *
                 System.out.println("Konec programu.");
@@ -24,12 +23,12 @@ public class ArrayAnalyzer {
         }
 
         // Vytvoření a naplnění pole
-        Integer[] arrOfNums = createArray(input, sc);
+        int[] arrOfNums = createArray(input, sc);
         if (arrOfNums == null) { // uživatel zadal * při plnění
             System.out.println("Konec programu.");
             return;
         }
-        double sumArr=sumOfElements(arrOfNums);
+        int sumArr=sumOfElements(arrOfNums);
         while(true){
             menu();
             Integer option=userInput(sc);
@@ -37,19 +36,29 @@ public class ArrayAnalyzer {
                 System.out.println("Konec programu.");
                 return;
             }
+            if(option<1||option>4){
+                System.out.println("Zadejte možnost 1-4.\n" +
+                        "--------------------------------------");
+                continue;
+            }
             switch(option) {
                 case 1:
                     System.out.println("Nejmenší hodnota v poli je " +
-                            +findMin(arrOfNums) + " a největsí hodnota v poli je " + findMax(arrOfNums) + ".");
+                            findMin(arrOfNums) + " a největší hodnota v poli je " + findMax(arrOfNums) + ".");
                     break;
                 case 2:
-                    System.out.println("Součet všsch prvků v poli je " + sumOfElements(arrOfNums) +
+                    System.out.println("Součet všech prvků v poli je " + sumArr +
                             " a jejich průměr je " + averageOfElements(sumArr, arrOfNums) + ".");
                     break;
                 case 3:
                     System.out.println("Napište jaké číslo chcete vyhledat:");
-                    value = userInput(sc);
-                    if (findElement(arrOfNums, value)) {
+                    Integer valueInput = userInput(sc);
+                    if (valueInput == null) {
+                        System.out.println("Konec programu.");
+                        return;
+                    }
+                    int value = valueInput;
+                    if (containsElement(arrOfNums, value)) {
                         System.out.println("Číslo " + value + " je obsaženo v poli.");
                     } else {
                         System.out.println("Číslo " + value + " není obsaženo v poli.");
@@ -81,9 +90,9 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro vytvoreni a naplneni pole.
-    public static Integer[] createArray(Integer size, Scanner sc) {
-        Integer[] nums = new Integer[size];
-        System.out.println("Postupně pište prvky pole. Za každým prvkem stisknete enter. Pro ukončení zadejte *.");
+    public static int[] createArray(Integer size, Scanner sc) {
+        int[] nums = new int[size];
+        System.out.println("Postupně pište prvky pole. Za každým prvkem stiskněte enter. Pro ukončení zadejte *.");
         for (int i = 0; i < size; i++) {
             Integer value = userInput(sc);
             if (value == null) {
@@ -95,7 +104,7 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro hledani minima.
-    public static int findMin(Integer[] arrOfNums){
+    public static int findMin(int[] arrOfNums){
         int min=arrOfNums[0];
         for(int i = 1; i<arrOfNums.length; i++){
             if(arrOfNums[i]<min){
@@ -106,7 +115,7 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro hledani maxima.
-    public static int findMax(Integer[] arrOfNums){
+    public static int findMax(int[] arrOfNums){
         int max=arrOfNums[0];
         for(int i = 1; i<arrOfNums.length; i++){
             if(max<arrOfNums[i]){
@@ -117,8 +126,8 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro soucet prvku.
-    public static double sumOfElements(Integer[] arrOfNums){
-        double sum=0;
+    public static int sumOfElements(int[] arrOfNums){
+        int sum=0;
         for(int i=0;i< arrOfNums.length;i++){
             sum+=arrOfNums[i];
         }
@@ -126,12 +135,12 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro vypocet prumeru prvku.
-    public static double averageOfElements(double sumArr,Integer[] arrOfNums){
+    public static double averageOfElements(int sumArr,int[] arrOfNums){
         return sumArr/arrOfNums.length;
     }
 
     //Metoda pro vyhledani prvku.
-    public static boolean findElement(Integer[] arrOfNums,int value) {
+    public static boolean containsElement(int[] arrOfNums,int value) {
         for (int element : arrOfNums){
             if (element == value) {
                 return true;
@@ -141,7 +150,7 @@ public class ArrayAnalyzer {
     }
 
     //Metoda pro modus.
-    public static int modus(Integer[] arrOfNums){
+    public static int modus(int[] arrOfNums){
         int maxCount = 0;
         int mode = arrOfNums[0];
         for (int i = 0; i < arrOfNums.length; i++) {
@@ -161,7 +170,7 @@ public class ArrayAnalyzer {
 
     //Metoda pro vyvolani menu.
     public static void menu(){
-        System.out.println("Vyberte jednu možnost zadaním příslušného čísla a potvrďte entrem:\n" +
+        System.out.println("Vyberte jednu možnost zadáním příslušného čísla a potvrďte entrem:\n" +
                 "--------------------------------------------------------------------\n" +
                 "1 – Min a Max\n" +
                 "2 – Součet a Průměr\n" +
