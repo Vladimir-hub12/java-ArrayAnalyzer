@@ -45,7 +45,7 @@ Vyberte jednu možnost zadáním příslušného čísla a potvrďte entrem:
 4 – Nejčastější prvek
 * – Konec
 4
-Nejčastěji vyskytujícíse prvek je:3
+Nejčastěji vyskytující se prvek je:3
 ```
 ---
 
