@@ -44,11 +44,13 @@ public class ArrayAnalyzer {
             switch(option) {
                 case 1:
                     System.out.println("Nejmenší hodnota v poli je " +
-                            findMin(arrOfNums) + " a největší hodnota v poli je " + findMax(arrOfNums) + ".");
+                            findMin(arrOfNums) + " a největší hodnota v poli je " + findMax(arrOfNums) + ".\n" +
+                            "----------------------------------------------------------------------");
                     break;
                 case 2:
                     System.out.println("Součet všech prvků v poli je " + sumArr +
-                            " a jejich průměr je " + averageOfElements(sumArr, arrOfNums) + ".");
+                            " a jejich průměr je " + averageOfElements(sumArr, arrOfNums) + ".\n" +
+                            "----------------------------------------------------------------------");
                     break;
                 case 3:
                     System.out.println("Napište jaké číslo chcete vyhledat:");
@@ -59,13 +61,16 @@ public class ArrayAnalyzer {
                     }
                     int value = valueInput;
                     if (containsElement(arrOfNums, value)) {
-                        System.out.println("Číslo " + value + " je obsaženo v poli.");
+                        System.out.println("Číslo " + value + " je obsaženo v poli.\n" +
+                                "-------------------------------------------------------------");
                     } else {
-                        System.out.println("Číslo " + value + " není obsaženo v poli.");
+                        System.out.println("Číslo " + value + " není obsaženo v poli.\n" +
+                                "---------------------------------------------------------------");
                     }
                     break;
                 case 4:
-                    System.out.println("Nejčastěji vyskytujícíse prvek je:" + modus(arrOfNums));
+                    System.out.println("Nejčastěji vyskytujícíse prvek je:" + modus(arrOfNums)+"\n" +
+                            "--------------------------------------------------------------------");
                     break;
 
             }
