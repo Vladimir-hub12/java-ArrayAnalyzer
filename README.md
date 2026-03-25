@@ -28,7 +28,7 @@ Program umožňuje provádět následující analýzy:
 
 ## Ukázka běhu
 Tato aplikace umožňuje analyzovat číselná data zadaná uživatelem a poskytuje základní statistické operace.
-
+```
 Zadejte kolik prvků bude pole obsahovat:
 5
 Postupně pište prvky pole. Za každým prvkem stiskněte enter. Pro ukončení zadejte *.
@@ -46,7 +46,7 @@ Vyberte jednu možnost zadáním příslušného čísla a potvrďte entrem:
 * – Konec
 4
 Nejčastěji vyskytujícíse prvek je:3
-
+```
 ---
 
 ## Ukázka výstupu (screenshot)
