@@ -69,7 +69,7 @@ public class ArrayAnalyzer {
                     }
                     break;
                 case 4:
-                    System.out.println("Nejčastěji vyskytujícíse prvek je:" + modus(arrOfNums)+"\n" +
+                    System.out.println("Nejčastěji vyskytující se prvek je:" + modus(arrOfNums)+"\n" +
                             "--------------------------------------------------------------------");
                     break;
 
